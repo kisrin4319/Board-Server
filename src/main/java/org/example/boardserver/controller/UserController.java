@@ -2,6 +2,7 @@ package org.example.boardserver.controller;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
+import org.example.boardserver.aop.LoginCheck;
 import org.example.boardserver.dto.UserDTO;
 import org.example.boardserver.dto.request.UserDeleteId;
 import org.example.boardserver.dto.request.UserLoginRequest;
@@ -70,6 +71,7 @@ public class UserController {
     }
 
     @PatchMapping("password")
+    @LoginCheck(type = LoginCheck.UserType.USER)
     public ResponseEntity<LoginResponse> updateUserPassword(@RequestBody UserUpdatePasswordRequest userUpdatePasswordRequest,
                                                             HttpSession session) {
 
