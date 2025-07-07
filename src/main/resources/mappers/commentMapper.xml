@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.boardserver.mapper.CommentMapper">
+
+    <insert id="register" parameterType="org.example.boardserver.dto.CommentDTO">
+        INSERT INTO Comment (postId,contents,subCommentId)
+        VALUES (#{postId},#{contents},#{subCommentId})
+    </insert>
+
+    <update id="updateComment" parameterType="org.example.boardserver.dto.CommentDTO">
+        UPDATE Comment
+        SET contents = #{contents},
+            subCommentId = #{subCommentId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteComment">
+        DELETE FROM Comment
+        WHERE id = #{CommentId}
+    </delete>
+</mapper>

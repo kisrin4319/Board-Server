@@ -36,4 +36,21 @@
         </if>
     </select>
 
+    <select id="getPostByTag" resultType="org.example.boardserver.dto.request.PostSearchRequest">
+        SELECT p.id,
+               p.name,
+               p.isAdmin,
+               p.contents,
+               p.createTime,
+               p.views,
+               p.categoryId,
+               p.userId,
+               p.fileId,
+               p.updateTime
+        FROM Post p
+        JOIN postTag pt ON p.id = pt.postId
+        JOIN Tag t ON pt.tagId = t.id
+        WHERE t.name = #{tagName}
+    </select>
+
 </mapper>
