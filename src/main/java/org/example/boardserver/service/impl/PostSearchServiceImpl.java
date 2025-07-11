@@ -8,6 +8,7 @@ import org.example.boardserver.mapper.PostSearchMapper;
 import org.example.boardserver.service.PostSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class PostSearchServiceImpl implements PostSearchService {
     @Autowired
     private PostSearchMapper postSearchMapper;
 
+    @Async
     @Cacheable(value = "getPosts", key = "'getPosts'+#postSearchRequest.getName()+ #postSearchRequest.getCategoryId()")
     @Override
     public List<PostDTO> getPosts(PostSearchRequest postSearchRequest) {
