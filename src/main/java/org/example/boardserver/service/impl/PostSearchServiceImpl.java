@@ -4,10 +4,12 @@ import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import org.example.boardserver.dto.PostDTO;
 import org.example.boardserver.dto.request.PostSearchRequest;
+import org.example.boardserver.exception.BoardServerException;
 import org.example.boardserver.mapper.PostSearchMapper;
 import org.example.boardserver.service.PostSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,7 @@ public class PostSearchServiceImpl implements PostSearchService {
             postDTOList = postSearchMapper.selectPosts(postSearchRequest);
         } catch (RuntimeException e) {
             log.error("selectPosts 메서드 실패", e.getMessage());
+            throw new BoardServerException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
         }
 
         return postDTOList;
